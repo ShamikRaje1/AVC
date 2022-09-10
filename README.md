@@ -19,17 +19,18 @@ Commands must be .json files of the following format:
   "command_phrases":[
      "these are phrases that",
      "the program will recognize",
-     "to activate the audio"
+     "to activate the audio",
+     "you can have virtually any number of these"
   ],
   "outputs" : [
      {
         "command_type": "audio",
         "audio_file": <Absolute path to file>
      },
-	 {
-		"command_type" "tts",
-		"text": "some text for tts"
-	 }
+     {
+	"command_type" "tts",
+	"text": "some text for tts"
+     }
   ]
 }
 ```
