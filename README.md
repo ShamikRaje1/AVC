@@ -29,7 +29,7 @@ Commands must be .json files of the following format:
      },
      {
 	"command_type" "tts",
-	"text": "some text for tts"
+	"text": "some text for tts. 1 output is required. It can be of either type."
      }
   ]
 }
