@@ -23,7 +23,6 @@ def get_valid_path(prompt, file_or_dir):
 
 
 def get_item_in_list(prompt, item_list, ret_name):
-    print('HERE')
     while True:
         print(prompt)
         for i, mic in enumerate(item_list):
@@ -44,18 +43,15 @@ def get_item_in_list(prompt, item_list, ret_name):
 
 def load_or_create_config():
     if os.path.exists('config.json'):
-        print("IT EXISTS")
         with open('config.json', 'r') as c:
             configs = json.load(c)
             for line in configs:
                 config_code.config_values[line] = configs[line]
     else:
-        print('IT DOES NOT EXIT')
         for line in config_code.config_list:
             print(line)
             print(config_code.config_types[line])
             if config_code.config_types[line] == 'file' or config_code.config_types[line] == 'dir':
-                print('EVAL TRUE!!!!')
                 file_or_dir = config_code.config_types[line] == 'file'
                 config_code.config_values[line] = get_valid_path(config_code.config_prompts[line],
                                                                  file_or_dir)
@@ -65,7 +61,6 @@ def load_or_create_config():
                                                                    mic_list,
                                                                    False)
             elif config_code.config_types[line] == 'output':
-                print('HERE OUTPUT')
                 devices = sounddevice.query_devices()
                 config_code.config_values[line] = get_item_in_list(config_code.config_prompts[line], devices, True)
 
@@ -82,8 +77,8 @@ if __name__ == '__main__':
     sp.recognize_and_run_cmds(ctrl)
     while not is_exit:
         try:
-            print('Working!')
-            time.sleep(1)
+            exit = input('type exit to exit:')
+            is_exit = exit == 'exit'
         except Exception as e:
             print('Error! ', e)
             print(e.with_traceback())
