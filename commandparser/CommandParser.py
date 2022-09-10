@@ -1,10 +1,19 @@
 import os
+import pyttsx3
 import numpy as np
 import pydub
 import json
 from config_code import config_values
 from output.FileAudioOutput import FileAudioOutput
-from output.TTSAudioOutput import TTSAudioOutput
+
+
+def tts_to_numpy(text):
+    engine = pyttsx3.init()
+    engine.save_to_file(text, 'temp.wav')
+    engine.runAndWait()
+    sr, x = mp3_to_numpy('temp.wav', 'wav')
+    os.remove('temp.wav')
+    return sr, x
 
 
 def mp3_to_numpy(f, file_format, normalized=False):
@@ -37,7 +46,8 @@ def parse_commands():
                     sr, x = mp3_to_numpy(output['audio_file'], 'mp3')
                     output_obj = FileAudioOutput(x)
                 elif output['command_type'] == 'tts':
-                    output_obj = TTSAudioOutput(output['text'])
+                    sr, x = tts_to_numpy(output['text'])
+                    output_obj = FileAudioOutput(x, rate=sr)
                 output_seq.append(output_obj)
 
             for phrase in command['command_phrases']:

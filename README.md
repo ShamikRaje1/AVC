@@ -9,7 +9,7 @@ Voice activated audio commands
 
 - Currenty relative pathing does not work so this deals entirely in absolute paths (i.e. you can't write ../folder/audio.mp3 you must write C:/Users/Name/folder/audio.mp3)
 - Additionally all audio files must be .mp3 files
-- Also while I have added some tts command support it does not work.
+- ~~Also while I have added some tts command support it does not work.~~ TTS NOW WORKS
 
 Commands must be .json files of the following format:
 ```
@@ -23,7 +23,11 @@ Commands must be .json files of the following format:
      {
         "command_type": "audio",
         "audio_file": <Absolute path to file>
-     }
+     },
+	 {
+		"command_type" "tts",
+		"text": "some text for tts"
+	 }
   ]
 }
 ```
