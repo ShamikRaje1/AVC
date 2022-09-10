@@ -26,3 +26,5 @@ Commands must be .json files of the following format:
   ]
 }
 ```
+
+You can have multiple outputs with multiple audio files, these will be played one at a time.
