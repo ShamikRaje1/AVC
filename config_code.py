@@ -1,4 +1,4 @@
-config_list = ['ffmpeg', 'commands', 'output', 'input']
+config_list = ['commands', 'output', 'input']
 
 config_types = {
     'ffmpeg': 'file',

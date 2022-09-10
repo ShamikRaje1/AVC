@@ -9,7 +9,7 @@ from output.TTSAudioOutput import TTSAudioOutput
 
 def mp3_to_numpy(f, file_format, normalized=False):
     input_file = os.path.normpath(f)
-    pydub.AudioSegment.converter = config_values['ffmpeg']
+    #pydub.AudioSegment.converter = config_values['ffmpeg']
     a = pydub.AudioSegment.from_file(input_file, file_format)
     y = np.array(a.get_array_of_samples())
     if a.channels == 2:
