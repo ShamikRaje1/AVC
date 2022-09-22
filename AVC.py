@@ -27,7 +27,7 @@ def get_item_in_list(prompt, item_list, ret_name):
         print(prompt)
         for i, mic in enumerate(item_list):
             if ret_name:
-                print(i, mic['name'], mic['max_input_channels'])
+                print(i, mic['name'] + ', ' + mic['hostapi'])
             else:
                 print(i, mic)
         usr_in = int(input())
@@ -36,7 +36,7 @@ def get_item_in_list(prompt, item_list, ret_name):
         else:
             if ret_name:
                 print(item_list[usr_in]['name'])
-                return item_list[usr_in]['name'] + ', MME'
+                return item_list[usr_in]['id']
             else:
                 return usr_in
 
@@ -62,7 +62,13 @@ def load_or_create_config():
                                                                    False)
             elif config_code.config_types[line] == 'output':
                 devices = sounddevice.query_devices()
-                config_code.config_values[line] = get_item_in_list(config_code.config_prompts[line], devices, True)
+                output_devices = []
+                for i, device in enumerate(devices):
+                    if device['max_output_channels'] > 0:
+                        device['hostapi'] = sounddevice.query_hostapis(device['hostapi'])['name']
+                        device['id'] = i
+                        output_devices.append(device)
+                config_code.config_values[line] = get_item_in_list(config_code.config_prompts[line], output_devices, True)
 
         with open('config.json', 'w+') as config_file:
             json.dump(config_code.config_values, config_file)
